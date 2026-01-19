@@ -136,7 +136,7 @@ Step-by-step playbooks for:
 - Alignment with: ISO 27001, SOC 2, PCI-DSS, GDPR
 📂 compliance/
 
-🚀 How to Use This Project
+## 🚀 How to Use This Project
 - Review architecture via folder structure
 - Deploy selectively based on your cloud provider
 - Use as reference for secure cloud design
