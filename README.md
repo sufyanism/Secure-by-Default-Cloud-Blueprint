@@ -83,3 +83,60 @@ secure-cloud-blueprint/
 - Separate roles for admin, application, and auditors
 - MFA enforcement and least-privilege policies
 📂 iam/
+
+
+
+
+2️⃣ Network Security
+- Private VPC and subnets
+- Security groups with minimal ingress/egress
+- Kubernetes network policies enforcing zero trust
+📂 network/
+
+3️⃣ Encryption & Data Protection
+- Centralized Key Management Service (KMS)
+- Encrypted storage by default
+- TLS enforced for all communications
+📂 encryption/
+
+4️⃣ Secure Compute
+- Hardened virtual machines
+- Secure container runtime
+- Kubernetes RBAC & Pod Security Standards
+📂 compute/
+
+5️⃣ Secrets Management
+- No hard-coded secrets
+- Centralized secret storage
+- Controlled access via IAM roles
+📂 secrets/
+
+6️⃣ Logging & Monitoring
+- Centralized logging
+- Real-time metrics & alerts
+- Immutable audit logs for forensics
+📂 logging-monitoring/
+
+7️⃣ Secure CI/CD (DevSecOps)
+- SAST for source code
+- Image vulnerability scanning
+- Policy gates blocking insecure deployments
+📂 cicd/
+
+8️⃣ Incident Response
+Step-by-step playbooks for:
+- Credential compromise
+- Data breaches
+- DDoS attacks
+📂 incident-response/
+
+9️⃣ Compliance & Governance
+- Mandatory resource tagging
+- Audit logging
+- Alignment with: ISO 27001, SOC 2, PCI-DSS, GDPR
+📂 compliance/
+
+🚀 How to Use This Project
+- Review architecture via folder structure
+- Deploy selectively based on your cloud provider
+- Use as reference for secure cloud design
