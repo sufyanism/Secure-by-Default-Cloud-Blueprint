@@ -7,7 +7,7 @@ It is suitable for:
 - DevSecOps learning & reference
 - Interview and viva explanations
 
-#🎯 Key Security Principles Implemented
+## 🎯 Key Security Principles Implemented
 - Zero Trust Networking
 - Least Privilege Access
 - Encryption at Rest & In Transit
@@ -15,7 +15,7 @@ It is suitable for:
 - Continuous Monitoring & Auditing
 - Automated Policy Enforcement
 
-# Compliance-Ready Design
+## Compliance-Ready Design
 ```plaintext
 📁 Project Structure
 secure-cloud-blueprint/
@@ -77,7 +77,7 @@ secure-cloud-blueprint/
     └── resource-tagging.yaml
 ```
 
-# 🔐 Component Breakdown
+## 🔐 Component Breakdown
 1️⃣ Identity & Access Management (IAM)
 - Role-based access control
 - Separate roles for admin, application, and auditors
