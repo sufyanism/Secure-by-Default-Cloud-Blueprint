@@ -1,0 +1,10 @@
+{
+  "RoleName": "AppRole",
+  "AssumeRolePolicyDocument": {
+    "Statement": [{
+      "Effect": "Allow",
+      "Principal": { "Service": "compute.service" },
+      "Action": "sts:AssumeRole"
+    }]
+  }
+}

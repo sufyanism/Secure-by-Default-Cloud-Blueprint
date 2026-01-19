@@ -1,0 +1,4 @@
+logging:
+  auditLogs: enabled
+  retentionDays: 90
+  immutable: true

@@ -1,0 +1,7 @@
+subnets:
+  public:
+    cidr: 10.0.1.0/24
+    internetAccess: true
+  private:
+    cidr: 10.0.2.0/24
+    internetAccess: false

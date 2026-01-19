@@ -1,0 +1,38 @@
+{
+  "RoleName": "ReadOnlyAuditRole",
+  "Description": "Read-only role for monitoring, auditing, and security visibility",
+  "AssumeRolePolicyDocument": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "security.cloudprovider.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  },
+  "Policies": [
+    {
+      "PolicyName": "ReadOnlyAuditPolicy",
+      "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "ReadOnlyAccess",
+            "Effect": "Allow",
+            "Action": [
+              "logs:GetLogEvents",
+              "logs:DescribeLogGroups",
+              "cloudwatch:GetMetricData",
+              "ec2:Describe*",
+              "eks:Describe*"
+            ],
+            "Resource": "*"
+          }
+        ]
+      }
+    }
+  ]
+}

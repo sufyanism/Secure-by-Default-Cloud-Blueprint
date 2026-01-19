@@ -1,0 +1,60 @@
+# Container Image Security Scanning Policy
+apiVersion: security.cicd/v1
+kind: ImageScanPolicy
+metadata:
+  name: secure-image-scan
+  environment: production
+spec:
+  scan:
+    enabled: true
+    trigger:
+      - onPush
+      - onPullRequest
+      - scheduled
+
+    schedule: "0 2 * * *"   # Daily scan at 02:00
+
+    scanners:
+      - trivy
+      - grype
+
+  vulnerabilityThresholds:
+    critical: 0
+    high: 0
+    medium: 5
+    low: 10
+
+  enforcement:
+    onCritical:
+      action: failPipeline
+    onHigh:
+      action: failPipeline
+    onMedium:
+      action: warn
+    onLow:
+      action: allow
+
+  imageRules:
+    requireSignedImages: true
+    signatureStandard: cosign
+    blockUntrustedRegistries: true
+    allowedRegistries:
+      - registry.company.internal
+      - ghcr.io/company
+
+  remediation:
+    autoCreateIssue: true
+    issueTracker: jira
+    includeFixVersions: true
+
+  reporting:
+    format:
+      - json
+      - html
+    retentionDays: 90
+
+  compliance:
+    standards:
+      - CIS-Docker
+      - ISO27001
+      - SOC2

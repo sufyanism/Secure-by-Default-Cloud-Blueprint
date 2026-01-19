@@ -1,0 +1,76 @@
+# Centralized Monitoring and Logging Configuration
+apiVersion observability.cloudv1
+kind MonitoringPolicy
+metadata
+  name secure-monitoring-policy
+  environment production
+spec
+  logging
+    enabled true
+    centralized true
+    retentionDays 90
+
+    sources
+      - applicationLogs
+      - systemLogs
+      - auditLogs
+      - networkFlowLogs
+
+    encryption
+      enabled true
+      keyManagement KMS
+
+  metrics
+    enabled true
+    scrapeInterval 30s
+
+    systemMetrics
+      - cpuUsage
+      - memoryUsage
+      - diskIO
+      - networkIO
+
+    kubernetesMetrics
+      - podRestartCount
+      - containerCPU
+      - containerMemory
+
+  alerts
+    enabled true
+    severityLevels
+      - critical
+      - warning
+
+    rules
+      - name HighCPUUsage
+        condition cpuUsage  80%
+        duration 5m
+        severity warning
+
+      - name UnauthorizedAccessAttempt
+        condition auditLog.event == AccessDenied
+        duration 1m
+        severity critical
+
+      - name PodCrashLoop
+        condition podRestartCount  3
+        duration 5m
+        severity critical
+
+  integrations
+    notificationChannels
+      - type email
+        target security-team@example.com
+      - type webhook
+        target soc-alert-endpoint
+
+  compliance
+    standards
+      - ISO27001
+      - SOC2
+      - PCI-DSS
+
+  enforcement
+    onFailure
+      action alert
+      message Monitoring or logging service failure detected

@@ -1,0 +1,3 @@
+tls:
+  minVersion: TLS1.2
+  insecureCiphersDisabled: true

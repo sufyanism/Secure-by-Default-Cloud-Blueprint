@@ -1,0 +1,70 @@
+# Audit Logging Policy - Secure by Default
+apiVersion: security.cloud/v1
+kind: AuditLoggingPolicy
+metadata:
+  name: secure-audit-logging
+  environment: production
+spec:
+  enabled: true
+
+  sources:
+    - iam
+    - apiGateway
+    - kubernetes
+    - network
+    - database
+    - storage
+
+  capture:
+    authenticationEvents: true
+    authorizationEvents: true
+    configurationChanges: true
+    dataAccessEvents: true
+    networkPolicyChanges: true
+
+  storage:
+    centralized: true
+    immutable: true
+    encryption:
+      enabled: true
+      keyManagement: KMS
+    retentionDays: 365
+
+  accessControl:
+    readOnlyRoles:
+      - ReadOnlyAuditRole
+      - SecurityOperationsRole
+    writeAccessRestricted: true
+
+  integrity:
+    enableLogHashing: true
+    enableTimestamping: true
+
+  alerting:
+    enabled: true
+    rules:
+      - name: ExcessiveFailedLogins
+        condition: authenticationFailures > 10
+        duration: 5m
+        severity: high
+
+      - name: PrivilegeEscalationAttempt
+        condition: event == "iam:PassRole"
+        severity: critical
+
+      - name: AuditLogTampering
+        condition: logIntegrityCheck == "failed"
+        severity: critical
+
+  export:
+    siemIntegration: true
+    formats:
+      - json
+      - parquet
+
+  compliance:
+    standards:
+      - ISO27001
+      - SOC2
+      - PCI-DSS
+      - GDPR

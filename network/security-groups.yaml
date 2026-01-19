@@ -1,0 +1,7 @@
+securityGroup:
+  inbound:
+    - port: 443
+      source: load-balancer
+  outbound:
+    - port: 443
+      destination: required-services

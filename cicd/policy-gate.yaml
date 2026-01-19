@@ -1,0 +1,4 @@
+policyGate:
+  blockOn:
+    - criticalVulnerabilities
+    - failedComplianceChecks

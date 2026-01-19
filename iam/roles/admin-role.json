@@ -1,0 +1,51 @@
+{
+  "RoleName": "SecureAdminRole",
+  "Description": "Administrative role for infrastructure management with enforced security controls",
+  "AssumeRolePolicyDocument": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "iam.cloudprovider.com"
+        },
+        "Action": "sts:AssumeRole",
+        "Condition": {
+          "Bool": {
+            "aws:MultiFactorAuthPresent": "true"
+          }
+        }
+      }
+    ]
+  },
+  "Policies": [
+    {
+      "PolicyName": "InfrastructureAdminPolicy",
+      "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "AllowInfraManagement",
+            "Effect": "Allow",
+            "Action": [
+              "ec2:*",
+              "vpc:*",
+              "eks:*",
+              "iam:PassRole"
+            ],
+            "Resource": "*"
+          },
+          {
+            "Sid": "DenyDangerousActions",
+            "Effect": "Deny",
+            "Action": [
+              "iam:DeleteRole",
+              "kms:DisableKey"
+            ],
+            "Resource": "*"
+          }
+        ]
+      }
+    }
+  ]
+}

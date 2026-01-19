@@ -1,0 +1,27 @@
+# Resource Tagging and Governance Policy
+apiVersion: governance.cloud/v1
+kind: ResourceTaggingPolicy
+metadata:
+  name: mandatory-resource-tagging
+  environment: production
+spec:
+  enforcement:
+    enabled: true
+    onViolation:
+      action: deny
+      message: "Resource creation denied: mandatory tags missing or invalid"
+
+  mandatoryTags:
+    - key: Environment
+      allowedValues:
+        - production
+        - staging
+        - development
+
+    - key: Owner
+      format: email
+
+    - key: Project
+      allowedValues:
+        - secure-cloud-blueprint
+        - mini-paas

@@ -1,0 +1,69 @@
+# Secure-by-Default Virtual Machine Configuration
+apiVersion: security.cloud/v1
+kind: SecureVirtualMachine
+metadata:
+  name: secure-app-vm
+  environment: production
+spec:
+  operatingSystem:
+    image: hardened-linux-lts
+    automaticSecurityUpdates: true
+    disablePasswordLogin: true
+    ssh:
+      enabled: true
+      keyBasedAuthOnly: true
+      allowedCiphers:
+        - aes256-gcm
+        - chacha20-poly1305
+
+  identity:
+    attachIAMRole: SecureAppRole
+    instanceMetadata:
+      enabled: true
+      requireIMDSv2: true
+
+  networking:
+    publicIP: false
+    subnetType: private
+    securityGroups:
+      inbound:
+        - protocol: tcp
+          port: 443
+          source: load-balancer
+      outbound:
+        - protocol: tcp
+          port: 443
+        - protocol: tcp
+          port: 5432
+
+  storage:
+    rootVolume:
+      encrypted: true
+      encryptionKey: kms-managed
+      deleteOnTermination: true
+    dataVolumes:
+      encrypted: true
+      encryptionKey: kms-managed
+      allowUnencrypted: false
+
+  monitoring:
+    enableDetailedMonitoring: true
+    logForwarding:
+      systemLogs: true
+      authLogs: true
+
+  hardening:
+    disableUnusedServices: true
+    enforceSELinux: true
+    kernelHardening: true
+
+  compliance:
+    standards:
+      - CIS
+      - ISO27001
+      - SOC2
+
+  enforcement:
+    onViolation:
+      action: deny
+      message: "VM configuration violates secure-by-default baseline"

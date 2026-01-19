@@ -1,0 +1,4 @@
+baseline:
+  encryptionRequired: true
+  publicAccessDisabled: true
+  mfaRequired: true

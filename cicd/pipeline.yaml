@@ -1,0 +1,5 @@
+stages:
+  - scan
+  - test
+  - build
+  - deploy

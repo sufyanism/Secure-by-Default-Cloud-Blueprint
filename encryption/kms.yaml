@@ -1,0 +1,3 @@
+kms:
+  keyRotation: true
+  algorithm: AES-256

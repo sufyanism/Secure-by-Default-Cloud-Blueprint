@@ -1,0 +1,11 @@
+# Enforces Kubernetes Pod Security Standards (Restricted)
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: secure-pod-baseline
+  namespace: production
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      role: app
